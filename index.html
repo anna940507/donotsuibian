@@ -14,51 +14,86 @@ h1{font-size:28px;margin:8px 0}h2{font-size:20px;margin:12px 0 18px}
 .bar{height:6px;background:var(--bd);border-radius:3px;margin-bottom:14px}.bar i{display:block;height:100%;background:var(--ac);border-radius:3px}
 .mut{color:var(--mut);font-size:14px}.em{font-size:56px;text-align:center}
 .q{font-style:italic;font-weight:600;margin:8px 0}.tag{color:var(--ac);font-size:14px}
-.c{text-align:center}
+.c{text-align:center}.card{background:linear-gradient(180deg,color-mix(in srgb,var(--ac) 16%,var(--card)),var(--card) 55%);border-color:color-mix(in srgb,var(--ac) 45%,var(--bd))}
+.dot{width:32px;height:32px;border-radius:50%!important;border:3px solid var(--bg);box-shadow:0 0 0 1.5px var(--bd);padding:0;margin:0 5px;cursor:pointer}.dot.on{box-shadow:0 0 0 2.5px var(--fg)}*{-webkit-tap-highlight-color:transparent}button{outline:none;-webkit-appearance:none;appearance:none;border-radius:12px}button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}.mini{border:1.5px solid var(--bd);border-radius:12px;padding:12px 8px;text-align:center}.mini small{display:block;color:var(--mut);font-size:12px}.mini div{font-size:36px;line-height:1.3}.mini b{font-size:14px}.btn{transition:transform .12s,border-color .12s}.btn:active,.sel{transform:scale(.97);border-color:var(--ac);background:var(--bd)}
+@keyframes pop{0%{opacity:0;transform:scale(.85) translateY(24px)}60%{transform:scale(1.03)}100%{opacity:1;transform:none}}@keyframes bn{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}@keyframes gr{from{width:0}}
+.rev{animation:pop .6s ease-out both}.rev .em{animation:bn .9s ease .6s 2}.st u{animation:gr .9s ease-out .6s both}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}.st{display:flex;align-items:center;gap:8px;font-size:14px;margin:6px 0}.st b{width:64px;font-weight:400}.st i{flex:1;height:8px;background:var(--bd);border-radius:4px;overflow:hidden}.st u{display:block;height:100%;background:var(--ac)}.st span{width:30px;text-align:right;color:var(--mut)}
 </style></head><body><main><div id="app"></div></main>
 <script>
 const R={
 fo:["🕊️","佛系隨便怪","「隨便、都好、都可以啊」","#脾氣超好 #隨遇而安 #行走的和平鴿","你是群體中最棒的綠葉，跟誰都能完美搭配。有行程就出門、沒行程就在家，不挑剔也不勉強，有你在特別放鬆。你的「隨便」從不是敷衍，而是「跟你們在一起做什麼都開心」。","你的「都可以」我們收到了，偷偷告訴我們你最想吃什麼吧！"],
-gh:["🕵️","假鬼假怪","「幾點？有誰？在哪裡？」問來問去人卻消失","#細節控 #薛丁格的出席 #神秘主義","你情報收集能力超強，聚會前一定要掌握人事時地物。常在關鍵時刻隱身，其實只是需要時間做心理建設。只要你現身，就是氣氛製造機。","資訊越透明你越安心，把細節一次給齊，你就不用再問了！"],
+gh:["🕵️","假鬼假怪","「幾點？有誰？在哪裡？」問來問去人卻消失","#細節控 #薛丁格的出席 #神秘主義","你情報收集能力超強，聚會前一定要掌握人事時地物。常在關鍵時刻隱身，其實只是需要時間做心理建設。你的挑剔是對生活品質的堅持，有你確認過的活動，大家都安心。","資訊越透明你越安心，把細節一次給齊，你就不用再問了！"],
 jj:["📣","揪揪怪","「明天要不要去咖啡廳？週日要不要去野餐！」","#人脈富翁 #派對雷達 #行動派","你是朋友圈的靈魂發電機，沒有你大家的週末都在床上發霉。點子不絕、熱情滿點。被你揪到的人嘴上嫌累，心裡覺得有你超幸運。","揪人你最強，統計與收尾交給我們，你專心當主角！"],
-pg:["🐦","傳說級鴿王","「咕咕咕」，留下了一坨鳥屎","#隨風飄散 #計畫免疫體質 #主打一個緣分","你是最難捕捉的傳說級神獸，不是故意放鳥，只是靈魂常在出門前一秒被沙發綁架。但正因難請，你一現身大家就像抽中 SSR 盲盒。","想讓你準時現身？先找到你真正想去的活動就對了！"],
-lt:["🌟","遲到王","「不是不到，只是時候未到，只要還有一秒就有奇蹟」","#時間管理大師 #華麗登場 #最後一秒奇蹟","你把遲到昇華成壓軸，期限前看似悠哉，其實是在蓄力。總在最後一秒華麗現身，一句無辜的「抱歉我來了～」就能融化全場。","我們幫你把集合時間「善意提前」30 分鐘，你還是會華麗登場。"],
+pg:["🦸","閃身步大師","「我今天練閃身步閃到腰，就不去了」","#理由伯 #I人天花板 #宅神眷顧","你是迴避技能點滿的極限特工，社交電量不足時，能瞬間發明一百種不失禮貌（但超荒謬）的理由保護私人時間，有時連靈魂都在出門前一秒被沙發綁架。雖然很難請出門，但你每次成功出席，大家都覺得像抽中 SSR 稀有卡一樣珍貴。","人少、時間短、有退場彈性的活動，最適合你；想讓你現身，先找到你真正想去的活動。"],
+lt:["🌟","遲到王","「不是不到，只是時候未到，只要還有一秒就有奇蹟」","#時間管理大師 #華麗登場 #最後一秒奇蹟","你把遲到昇華成壓軸，期限前看似悠哉，其實是在蓄力。總在最後一秒現身，一句無辜的「抱歉我來了～」讓人氣不起來。","我們幫你把集合時間「善意提前」30 分鐘，你還是會華麗登場。"],
 kid:["🎒","萬能孩子王","「每次出去都像帶一群小孩」","#全知全能 #行走的導航 #隱藏版媽咪","你是最讓人安心的存在：方向感好、包包什麼都有、隨時注意大家安全。常忍不住翻白眼，卻有顆柔軟包容的心。","照顧所有人的你，這次換我們來照顧你。"],
 acc:["🧮","皇家精算師","「這份薯條60元12根，你吃了兩根，等等轉10元給我」","#人體計算機 #財務大臣 #公平正義","你有敏銳的數字直覺和絕對的公平精神。算帳一絲不苟，是為了讓每個人都被合理對待。活動有你在，財務沒煩惱！","預算透明、帳目清楚，正是我們最欣賞的「不隨便」！"],
-dodge:["🦸","閃身步大師","「我今天練閃身步閃到腰，就不去了」","#理由伯 #I人天花板 #宅神眷顧","你是迴避技能點滿的極限特工，社交電量不足時能發明一百種荒謬理由。但你每次成功出席，大家都覺得像抽中稀有卡。","人少、時間短、可彈性退場的活動，最適合你。"],
+dodge:["🦸","閃身步大師","「我今天練閃身步閃到腰，就不去了」","#理由伯 #I人天花板 #宅神眷顧","你是迴避技能點滿的極限特工，社交電量不足時，能瞬間發明一百種不失禮貌（但超荒謬）的理由。雖然很難請出門，但你每次成功出席，大家都覺得像抽中 SSR 稀有卡一樣珍貴。","人少、時間短、可彈性退場的活動，最適合你。"],
+cheer:["🎉","氣氛擔當","「我來我來！這個我最會！」","#捧場王 #笑點很低 #掌聲製造機","你不一定是主辦，但有你在活動就不會冷場。最會鼓掌、尖叫、接梗，玩遊戲永遠第一個舉手，大家表演時你是最棒的觀眾。","你負責開心，我們負責把活動辦好，這是最完美的分工！"],
 ai:["🤖","人間AI","「活動一條龍通通交給我」","#超級雷達 #執行力爆表 #神級隊友","你是神級大腿，從規劃、訂位到場控都能搞定。享受掌控全局，抗壓性強。偶爾累，但看到大家感激的眼神就值得了。","你當大腦，我們當你的 AI，讓你也能好好享受活動！"],
-snark:["😏","嘟嘟嘟你很壞","「噢可是這個行程很無聊ㄟ🙄」","#陰陽怪氣 #嘴遁王者 #傲嬌毒舌","你是最欠揍卻最不可或缺的陰陽大師，嘴上嫌棄，身體卻很誠實地準時出現。這是你表達在乎的方式，也為聚會增添超多笑料。","嫌棄也是一種意見！告訴我們你想要什麼，才能讓你無話可說。"],
-odd:["🦖","你好怪","「別人搭捷運，你偏要騎恐龍」","#腦洞突破天際 #不按牌理出牌 #行走的迷因","大家討論 A 和 B 時，你總能蹦出驚艷全場的 C。你的怪是不被框架束縛的創意，有你的地方絕不冷場。","你的點子，就是活動最不隨便的靈魂。"],
+snark:["😏","嘟嘟嘟你很壞","「噢可是這個行程很無聊ㄟ🙄」","#陰陽怪氣 #嘴遁王者 #傲嬌毒舌","你是最欠揍卻不可或缺的陰陽大師，嘴上嫌棄，身體卻很誠實地準時出現。這是你表達在乎的方式，朋友們都懂。","嫌棄也是一種意見！告訴我們你想要什麼，才能讓你無話可說。"],
+odd:["🦖","你好怪","「別人搭捷運，你偏要騎恐龍」","#腦洞突破天際 #不按牌理出牌 #行走的迷因","大家討論 A 和 B 時，你總能蹦出意想不到的 C。你的怪是不被框架束縛的創意，跟你聊天永遠有驚喜。","你的點子，就是活動最不隨便的靈魂。"],
 play:["🧭","隨地開玩怪","「這附近有什麼？走走看啊！」","#即興冒險 #路線不存在 #走到哪玩到哪","你是「好的隨便」代表：彈性高又真的享受過程。沒有計畫也能把路邊小店玩成景點，跟你出門永遠有驚喜。","有你在，備案就是最好的主案。"],
 say:["🎯","有話直說怪","「我不吃香菜、不要太早、要有冷氣，謝謝！」","#偏好清楚 #忌口明確 #主辦人最愛","稀有結果！你把需求講得清清楚楚，是主辦人心中的理想參加者，大家因你而少踩很多雷。這正是「Don't 隨便」的精神。","你，就是 Don't 隨便 的代言人。"],
 food:["🍜","美食雷達怪","「那間排隊我研究過了，點這三樣」","#口袋名單 #吃貨 #忌口記憶體","你對吃有天生雷達，哪間好吃、誰不吃什麼都記得。聚餐有你，等於有了活的美食地圖。","餐飲是活動的靈魂，我們需要你的雷達。"],
 bday:["🎂","今天是我生日","「祝你生日快樂祝你生日快樂祝你生日快樂呃呃呃呃呃呃祝你生日快樂」","#祝你生日快樂 #每一天都值得慶祝 #跟所有的煩惱說掰掰","抽中這張卡，快秀給大家看，讓大家為你唱生日快樂吧！\n🎁 秀出身分證證明今天生日，有驚喜小禮物喔！",""],
 s67:["6️⃣7️⃣","67 怪","「不管3721我就是要67」","#6767 #7676 #6767","才不管什麼人格測驗，活動嘛～開心就好！\n67676767676767","好，這個「隨便」我們批准。"]};
 const Q=[
-["你的超級好麻吉下個月生日，你會？",[["當天傳訊息祝他生日快樂就好","dodge fo"],["一人默默規劃驚喜","ai odd"],["找共同好友一起準備驚喜","jj kid"],["今天是我生日","BDAY"]]],
-["群組問「週末吃什麼？」，你會？",[["都可以啊，你們決定","fo play"],["秒丟三間口袋名單加避雷","food ai"],["我不吃香菜、不要太遠，先講清楚","say gh"],["已讀，晚點再回（然後忘記）","pg lt"],["先上網爬評價跟菜單，再回你","food gh"]]],
-["下午兩點集合，你通常？",[["提早10分鐘到，順便看路","kid acc"],["剛好在兩點整抵達","lt fo"],["出門前一秒覺得「其實不去也行」","pg dodge"],["「我快到了」（還在洗頭）","lt pg"]]],
-["到了現場，發現預約的場地臨時不能用，你會？",[["沒差，邊走邊看有什麼可以玩","play fo"],["馬上拿出我準備好的備案","ai kid"],["「我就說這行程很無聊」，但還是跟著去","snark gh"],["提議把現場變成遊戲，例如猜謎或尋寶","odd jj"],["先確認大家有沒有餓、累、需要休息","kid food"]]],
-["聚餐後要算錢，你會？",[["掏出計算機，精準到個位數","acc say"],["平分就好～","play fo"],["我先墊，之後再說","kid ai"],["默默等別人算","dodge pg"]]],
-["朋友問「下週有活動，要來嗎？」，你第一反應是？",[["去！我再揪兩個人","jj play"],["先問幾點、誰去、在哪","gh say"],["好啊～（腦中已開始編理由）","dodge pg"],["看那天心情，想去再說","odd lt"],["先問預算多少、AA 還是主辦請","acc say"]]],
-["活動前一天，你的準備進度通常是？",[["早就準備好了，還幫別人檢查","ai acc"],["還有一天，晚點再開始","lt fo"],["先看大家怎麼準備，再跟著做","gh fo"],["用自己的奇怪方法準備，例如把待辦事項編成歌","odd snark"]]],
-["活動進行到一半，你最常在做什麼？",[["帶頭玩、拍照、炒熱氣氛","jj odd"],["邊吐槽邊玩得最開心","snark gh"],["到處亂逛，發現隱藏景點","play food"],["偷偷計算什麼時候能回家","dodge pg"],["默默注意有沒有人落單、玩得不開心","kid ai"]]],
-["報名表有「飲食忌口」欄位，你會？",[["寫得超詳細，連不吃的品牌都寫","say gh"],["順便幫朋友查好他們的忌口再填","food kid"],["填「沒有忌口」，不愛吃的我自己挑掉就好","fo play"],["先填沒有，到現場才說「其實我挑食」","snark gh"],["先問主辦人餐廳是哪間，再決定怎麼填","gh acc"]]],
-["週末早上醒來，你的第一個念頭？",[["有行程就出門，沒行程就在家","fo play"],["今天要揪誰出門？","jj food"],["今天有昨天答應的活動…算了吧","pg dodge"],["先把下週行程排好","acc ai"]]],
-["活動結束，大家問要不要續攤？",[["才 9 點耶，附近走走再說！","play jj"],["嘴上喊累，結果第一個走進店裡","snark odd"],["我明天還有事，先閃了","pg dodge"],["隨大家，我跟著走","play fo"]]],
-["主辦人問「活動有哪裡可以改進？」，你會？",[["有！我整理好三點，下次請改","say acc"],["沒有，都很好","dodge fo"],["其實那間餐廳…算了，下次再說","snark gh"],["我早就在群組提醒過了，只是沒人看","kid say"],["有，下次可以改成戶外玩法，我有個點子","odd play"]]]];
+["你的超級好麻吉下個月生日，你會？",[["當天傳訊息祝他生日快樂就好","fo dodge"],["一人默默規劃驚喜","ai odd"],["找共同好友一起準備驚喜","jj kid"],["今天是我生日","BDAY"]]],
+["群組問「週末吃什麼？」，你會？",[["都可以啊，你們決定","fo play"],["秒丟三間口袋名單加避雷","food ai"],["我不吃香菜、不要太遠，先講清楚","say gh"],["已讀，晚點再回（然後忘記）","pg lt"],["先上網爬評價跟菜單，再回你","gh food"]]],
+["下午兩點集合，你通常？",[["提早10分鐘到，順便看路","kid acc"],["剛好在兩點整抵達","acc lt"],["出門前一秒覺得「其實不去也行」","pg"],["「我快到了」（還在洗頭）","lt pg"]]],
+["到了現場，發現預約的場地臨時不能用，你會？",[["沒差，邊走邊看有什麼可以玩","play fo"],["馬上拿出我準備好的備案","ai kid"],["「我就說這行程很無聊」，但還是跟著去","snark gh"],["提議把現場變成遊戲，例如猜謎或尋寶","odd cheer"],["先確認大家有沒有餓、累、需要休息","food kid"]]],
+["聚餐後要算錢，你會？",[["掏出計算機，精準到個位數","acc say"],["平分就好～","fo play"],["我先墊，之後再說","kid ai"],["默默等別人算","dodge"]]],
+["朋友問「下週有活動，要來嗎？」，你第一反應是？",[["去！我再揪兩個人","jj cheer"],["先問幾點、誰去、在哪","gh say"],["好啊～（腦中已開始編理由）","dodge pg"],["看那天心情，臨時想去再說","play lt"],["先問預算多少、AA 還是主辦請","acc say"]]],
+["活動前一天，你的準備進度通常是？",[["早就準備好了，還幫別人檢查","ai acc"],["還有一天，晚點再開始","lt fo"],["先看大家怎麼準備，再跟著做","gh acc"],["用自己的奇怪方法準備，例如把待辦事項編成歌","odd snark"]]],
+["活動進行到一半，你最常在做什麼？",[["帶頭玩、拍照、炒熱氣氛","cheer jj"],["邊吐槽邊玩得最開心","snark odd"],["到處亂逛，發現隱藏景點","play food"],["偷偷計算什麼時候能回家","dodge"],["默默注意有沒有人落單、玩得不開心","kid ai"]]],
+["報名表有「飲食忌口」欄位，你會？",[["寫得超詳細，連不吃的品牌都寫","gh say"],["順便幫朋友查好他們的忌口再填","food kid"],["填「沒有忌口」，不愛吃的我自己挑掉就好","fo play"],["先填沒有，到現場才說「其實我挑食」","snark fo"],["只寫一兩樣最不能吃的就好","say fo"]]],
+["週末早上醒來，你的第一個念頭？",[["有行程就出門，沒行程就在家","fo play"],["今天要揪誰出門？","jj food"],["今天有昨天答應的活動…算了吧","pg"],["先把下週行程排好","acc ai"]]],
+["活動結束，大家問要不要續攤？",[["才 9 點耶，還沒玩夠，再一攤！","cheer play"],["嘴上喊累，結果第一個走進店裡","snark odd"],["我明天還有事，先閃了","dodge pg"],["隨大家，我跟著走","fo play"]]],
+["主辦人問「活動有哪裡可以改進？」，你會？",[["有！我整理好三點，下次請改","say acc"],["沒有，我玩得超開心，下次還要來！","cheer fo"],["其實那間餐廳…算了，下次再說","snark gh"],["我早就在群組提醒過了，只是沒人看","kid say"],["有，下次可以改成戶外玩法，我有個點子","odd play"]]]];
 const T67=["不管啦67",null,"676767",null,"6767",null,"隨便啦67",null,null,"67686970","67就是67",null];
-const P={fo:"jj",gh:"say",jj:"fo",pg:"jj",lt:"ai",kid:"pg",acc:"fo",dodge:"play",ai:"say",snark:"odd",odd:"snark",play:"food",say:"ai",food:"play"};
+const P={fo:"jj",gh:"say",jj:"fo",pg:"jj",lt:"ai",kid:"pg",acc:"fo",cheer:"pg",dodge:"play",ai:"say",snark:"odd",odd:"snark",play:"food",say:"ai",food:"play"};
+const B={fo:"隨和不挑、有行程就出門",gh:"問清楚才安心的細節控",jj:"永遠在揪人的靈魂發電機",pg:"電量不足就閃的理由大師",lt:"最後一秒華麗登場",kid:"包包什麼都有的安心擔當",acc:"算得清清楚楚的財務大臣",ai:"活動一條龍的神級隊友",snark:"嘴上嫌棄、身體很誠實",odd:"腦洞突破天際的彩蛋",play:"走到哪玩到哪的野生玩家",say:"偏好講得清清楚楚的標竿",food:"口袋名單滿滿的吃貨雷達",cheer:"最捧場的氣氛擔當"};
+const V={};
 const TOT={};Q.forEach(q=>{const m={};q[1].forEach(o=>{if(o[1]!="BDAY")o[1].split(" ").forEach((x,j)=>m[x]=Math.max(m[x]||0,j?1:2))});for(const x in m)TOT[x]=(TOT[x]||0)+m[x]});
+const L=["社交電量","計畫力","準時度","隨和度"];
+const S={fo:[60,30,70,95],gh:[45,85,65,30],jj:[95,60,60,70],pg:[40,15,30,70],dodge:[15,35,40,45],cheer:[90,25,60,80],lt:[60,30,10,70],kid:[65,90,90,60],acc:[55,85,85,35],ai:[80,98,95,50],snark:[55,40,75,25],odd:[75,20,50,65],play:[85,10,55,90],say:[60,70,80,15],food:[70,75,75,55]};
+function bars(k){return S[k].map((v,j)=>`<div class="st"><b>${L[j]}</b><i><u style="width:${v}%"></u></i><span>${v}</span></div>`).join("")}
+function wrap(c,t,x,y,w,lh){let l="";for(const ch of t){if(c.measureText(l+ch).width>w){c.fillText(l,x,y);y+=lh;l=ch}else l+=ch}c.fillText(l,x,y);return y+lh}
+const T=["#ff7a3d","#ec4899","#3b82f6","#10b981","#8b5cf6","#eab308"];let cc=0,curRu,curG,lastCv;
+function th(j){cc=j;const c=document.querySelector(".card.rev");if(c)c.style.setProperty("--ac",T[j]);document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("on",i==j))}
+function rr(c,x,y,w,h){c.beginPath();c.roundRect?c.roundRect(x,y,w,h,24):c.rect(x,y,w,h)}
+function save(k){const r=R[k],W=1080,A=T[cc],cv=document.createElement("canvas");cv.width=W;cv.height=2000;const c=cv.getContext("2d");
+c.fillStyle="#fff8ee";c.fillRect(0,0,W,2000);const gr=c.createLinearGradient(0,0,0,900);gr.addColorStop(0,A+"40");gr.addColorStop(1,A+"00");c.fillStyle=gr;c.fillRect(0,0,W,900);c.fillStyle=A;c.fillRect(0,0,W,18);
+c.textAlign="center";c.fillStyle="#2b2118";c.font="150px sans-serif";c.fillText(r[0],W/2,240);
+c.font="bold 78px sans-serif";c.fillText(r[1],W/2,360);
+c.font="italic 40px sans-serif";let y=wrap(c,r[2],W/2,440,900,56);
+c.font="34px sans-serif";c.fillStyle=A;y=wrap(c,r[3],W/2,y+10,900,48);
+c.textAlign="left";c.fillStyle="#2b2118";c.font="38px sans-serif";y=wrap(c,r[4].replace(/\n/g," "),90,y+30,900,58);
+const bx=[["也有點像",curRu],["最合拍",P[k]]].filter(b=>b[1]);
+if(bx.length){y+=10;bx.forEach((b,j)=>{const x=(bx.length>1?90:320)+j*460;c.fillStyle="#fff";rr(c,x,y,440,230);c.fill();c.strokeStyle="#f0dfc8";c.lineWidth=3;c.stroke();c.textAlign="center";c.fillStyle="#8a7a6a";c.font="26px sans-serif";c.fillText(b[0],x+220,y+44);c.fillStyle="#2b2118";c.font="80px sans-serif";c.fillText(R[b[1]][0],x+220,y+135);c.font="bold 34px sans-serif";c.fillText(R[b[1]][1],x+220,y+200)});y+=290}
+if(S[k]&&!curG){c.textAlign="left";S[k].forEach((v,j)=>{c.font="34px sans-serif";c.fillStyle="#2b2118";c.fillText(L[j],90,y+10);c.fillStyle="#f0dfc8";c.fillRect(300,y-16,560,24);c.fillStyle=A;c.fillRect(300,y-16,560*v/100,24);c.fillStyle="#8a7a6a";c.fillText(v,880,y+10);y+=64});y+=10}
+if(r[5]){c.textAlign="left";c.fillStyle="#8a7a6a";c.font="32px sans-serif";y=wrap(c,"💬 Don't 隨便 小語："+r[5],90,y+30,900,46)}
+c.textAlign="center";c.fillStyle="#8a7a6a";c.font="32px sans-serif";c.fillText("Don't 隨便｜你是哪種活動怪？",W/2,y+50);
+const o=document.createElement("canvas");o.width=W;o.height=Math.ceil(y+100);o.getContext("2d").drawImage(cv,0,0);lastCv=o;
+const ov=document.createElement("div");ov.id="ov";ov.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.88);overflow:auto;padding:16px;z-index:9;text-align:center;color:#fff";
+ov.innerHTML=`<img src="${o.toDataURL("image/png")}" style="max-width:100%;border-radius:12px"><p>長按圖片即可儲存</p><button class="btn go" onclick="share()">分享／下載圖片</button><button class="btn" onclick="document.getElementById('ov').remove()" style="text-align:center">關閉</button>`;document.body.appendChild(ov)}
+function share(){lastCv.toBlob(b=>{const f=new File([b],"dont-suibian.png",{type:"image/png"});if(navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f]}).catch(()=>{});else{const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="dont-suibian.png";a.click()}})}
 const app=document.getElementById("app");let i,sc,n67,seen;
+function gal(){app.innerHTML=`<h2>所有角色</h2><p class="mut">共 14 種，另有 2 個隱藏彩蛋 🤫</p>`+Object.keys(R).filter(k=>k!="bday"&&k!="s67").map(k=>`<button class="btn" onclick="res('${k}',null,1)">${R[k][0]} <b>${R[k][1]}</b><br><span class="mut">${R[k][2]}</span></button>`).join("")+`<button class="btn" style="text-align:center" onclick="start()">← 回首頁</button>`;window.scrollTo(0,0)}
 function start(){app.innerHTML=`<div class="card c"><div class="em">🎲</div><h1>你是哪種活動怪？</h1><p class="mut">Don't 隨便 × 8 題小測驗<br>揪團、遲到、算錢…你在朋友圈是誰？</p><button class="btn go" onclick="begin()">開始測驗</button></div>`}
 function begin(){i=0;sc={};n67=0;seen={};ord={};hist=[];show()}
 let cur=[],ord={},hist=[];
 function show(){const q=Q[i];if(!ord[i]){const c=[...q[1]];if(T67[i])c.push([T67[i],"S67"]);for(let a=c.length-1;a>0;a--){const b=Math.floor(Math.random()*(a+1));[c[a],c[b]]=[c[b],c[a]]}ord[i]=c}cur=ord[i];
-app.innerHTML=`<div class="bar"><i style="width:${i/Q.length*100}%"></i></div><p class="mut">第 ${i+1} / ${Q.length} 題</p><h2>${q[0]}</h2>`+cur.map((o,k)=>`<button class="btn" onclick="pick(${k})">${o[0]}</button>`).join("")+(i>0?`<button class="btn" style="text-align:center;color:var(--mut)" onclick="back()">← 返回上一題</button>`:"")}
+app.innerHTML=`<div class="bar"><i style="width:${i/Q.length*100}%"></i></div><p class="mut">第 ${i+1} / ${Q.length} 題</p><h2>${q[0]}</h2>`+cur.map((o,k)=>`<button class="btn" onclick="pick(${k},this)">${o[0]}</button>`).join("")+(i>0?`<button class="btn" style="text-align:center;color:var(--mut)" onclick="back()">← 返回上一題</button>`:"")}
 function back(){const h=hist.pop();sc=h.sc;seen=h.seen;n67=h.n67;i--;show()}
-function pick(k){const c=cur[k][1];if(c=="BDAY")return res("bday");hist.push({sc:{...sc},seen:{...seen},n67});if(c=="S67")n67++;else{c.split(" ").forEach((x,j)=>{sc[x]=(sc[x]||0)+(j?1:2);seen[x]=i})}i++;i<Q.length?show():fin()}
-function fin(){if(n67>=3)return res("s67");const a=Object.keys(sc).sort((x,y)=>sc[y]/Math.sqrt(TOT[y])-sc[x]/Math.sqrt(TOT[x])||seen[y]-seen[x]);res(a[0]||"fo",a[1])}
-function res(k,ru){const r=R[k];app.innerHTML=`<div class="card"><div class="em">${r[0]}</div><p class="mut c">你的活動人格是</p><h1 class="c">${r[1]}</h1><p class="q c">${r[2]}</p><p class="tag c">${r[3]}</p><p>${r[4].replace(/\n/g,"<br>")}</p>${ru?`<p class="mut">你也有一點像：${R[ru][0]} ${R[ru][1]}</p>`:""}${P[k]?`<p class="mut">🤝 最佳拍檔：${R[P[k]][0]} ${R[P[k]][1]}</p>`:""}${r[5]?`<p class="mut">💬 Don't 隨便 小語：${r[5]}</p>`:""}</div><p class="mut c">截圖分享給朋友吧！</p><button class="btn go" onclick="begin()">再測一次</button>`;window.scrollTo(0,0)}
+let lock=0;function pick(k,b){if(lock)return;lock=1;if(b)b.classList.add("sel");setTimeout(()=>{lock=0;pick0(k)},170)}
+function pick0(k){const c=cur[k][1];if(c=="BDAY")return res("bday");hist.push({sc:{...sc},seen:{...seen},n67});if(c=="S67")n67++;else{c.split(" ").forEach((x,j)=>{sc[x]=(sc[x]||0)+(j?1:2);seen[x]=i})}i++;i<Q.length?show():fin()}
+function fin(){if(n67>=3)return res("s67");const a=Object.keys(sc).sort((x,y)=>sc[y]/Math.pow(TOT[y],.75)-sc[x]/Math.pow(TOT[x],.75)||seen[y]-seen[x]);res(a[0]||"fo",a[1])}
+function vid(k,f){app.innerHTML=`<video id="vd" src="${V[k]}" playsinline autoplay controls style="width:100%;border-radius:12px"></video><button class="btn" style="text-align:center" id="sk">跳過</button>`;const v=document.getElementById("vd");v.onended=f;v.onerror=f;document.getElementById("sk").onclick=f}
+function mini(ru,p){const f=(l,x)=>x?`<div class="mini"><small>${l}</small><div>${R[x][0]}</div><b>${R[x][1]}</b></div>`:"";const h=f("也有點像",ru)+f("最合拍",p);return h?`<div class="two">${h}</div>`:""}
+function res(k,ru,g,sk){if(!g&&!sk&&V[k])return vid(k,()=>res(k,ru,g,1));const r=R[k];curRu=ru;curG=g;app.innerHTML=`<div class="card rev" style="--ac:${T[cc]}"><div class="em">${r[0]}</div><p class="mut c">你的活動人格是</p><h1 class="c">${r[1]}</h1><p class="q c">${r[2]}</p><p class="tag c">${r[3]}</p><p>${r[4].replace(/\n/g,"<br>")}</p>${mini(ru,P[k])}${S[k]&&!g?bars(k):""}${r[5]?`<p class="mut">💬 Don't 隨便 小語：${r[5]}</p>`:""}</div><p class="mut c" style="margin-bottom:6px">卡片顏色</p><div class="c" style="margin-bottom:14px">${T.map((x,j)=>`<button class="dot${j==cc?" on":""}" style="background:${x}" onclick="th(${j})"></button>`).join("")}</div><button class="btn go" onclick="save('${k}')">💾 儲存結果圖片</button>${g?"":`<button class="btn" style="text-align:center" onclick="gal()">瀏覽所有角色</button>`}${g?`<button class="btn" style="text-align:center" onclick="gal()">← 回角色列表</button>`:`<button class="btn" style="text-align:center" onclick="begin()">再測一次</button>`}`;window.scrollTo(0,0)}
 start();
 </script></body></html>
