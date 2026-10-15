@@ -14,7 +14,7 @@ h1{font-size:28px;margin:8px 0}h2{font-size:20px;margin:12px 0 18px}
 .bar{height:6px;background:var(--bd);border-radius:3px;margin-bottom:14px}.bar i{display:block;height:100%;background:var(--ac);border-radius:3px}
 .mut{color:var(--mut);font-size:14px}.em{font-size:56px;text-align:center}
 .q{font-style:italic;font-weight:600;margin:8px 0}.tag{color:var(--ac);font-size:14px}
-.c{text-align:center}.card{background:linear-gradient(180deg,color-mix(in srgb,var(--ac) 16%,var(--card)),var(--card) 55%);border-color:color-mix(in srgb,var(--ac) 45%,var(--bd))}
+.c{text-align:center}.card{background:color-mix(in srgb,var(--ac) 10%,var(--card));border-color:color-mix(in srgb,var(--ac) 45%,var(--bd))}
 .dot{width:32px;height:32px;border-radius:50%!important;border:3px solid var(--bg);box-shadow:0 0 0 1.5px var(--bd);padding:0;margin:0 5px;cursor:pointer}.dot.on{box-shadow:0 0 0 2.5px var(--fg)}*{-webkit-tap-highlight-color:transparent}button{outline:none;-webkit-appearance:none;appearance:none;border-radius:12px}button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}.mini{border:1.5px solid var(--bd);border-radius:12px;padding:12px 8px;text-align:center}.mini small{display:block;color:var(--mut);font-size:12px}.mini div{font-size:36px;line-height:1.3}.mini b{font-size:14px}.btn{transition:transform .12s,border-color .12s}.btn:active,.sel{transform:scale(.97);border-color:var(--ac);background:var(--bd)}
 @keyframes pop{0%{opacity:0;transform:scale(.85) translateY(24px)}60%{transform:scale(1.03)}100%{opacity:1;transform:none}}@keyframes bn{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}@keyframes gr{from{width:0}}
@@ -54,19 +54,19 @@ const Q=[
 ["活動結束，大家問要不要續攤？",[["才 9 點耶，還沒玩夠，再一攤！","cheer play"],["嘴上喊累，結果第一個走進店裡","snark odd"],["我明天還有事，先閃了","dodge pg"],["隨大家，我跟著走","fo play"]]],
 ["主辦人問「活動有哪裡可以改進？」，你會？",[["有！我整理好三點，下次請改","say acc"],["沒有，我玩得超開心，下次還要來！","cheer fo"],["其實那間餐廳…算了，下次再說","snark gh"],["我早就在群組提醒過了，只是沒人看","kid say"],["有，下次可以改成戶外玩法，我有個點子","odd play"]]]];
 const T67=["不管啦67",null,"676767",null,"6767",null,"隨便啦67",null,null,"67686970","67就是67",null];
-const P={fo:"jj",gh:"say",jj:"fo",pg:"jj",lt:"ai",kid:"pg",acc:"fo",cheer:"pg",dodge:"play",ai:"say",snark:"odd",odd:"snark",play:"food",say:"ai",food:"play"};
-const B={fo:"隨和不挑、有行程就出門",gh:"問清楚才安心的細節控",jj:"永遠在揪人的靈魂發電機",pg:"電量不足就閃的理由大師",lt:"最後一秒華麗登場",kid:"包包什麼都有的安心擔當",acc:"算得清清楚楚的財務大臣",ai:"活動一條龍的神級隊友",snark:"嘴上嫌棄、身體很誠實",odd:"腦洞突破天際的彩蛋",play:"走到哪玩到哪的野生玩家",say:"偏好講得清清楚楚的標竿",food:"口袋名單滿滿的吃貨雷達",cheer:"最捧場的氣氛擔當"};
-const V={};
+const P={fo:"jj",gh:"say",jj:"fo",pg:"jj",lt:"ai",kid:"pg",acc:"fo",cheer:"pg",s67:"cheer",ai:"say",snark:"odd",odd:"snark",play:"food",say:"ai",food:"play"};
+const B={fo:"隨和不挑、有行程就出門",gh:"問清楚才安心的細節控",jj:"永遠在揪人的靈魂發電機",pg:"電量不足就閃的理由大師",lt:"最後一秒華麗登場",kid:"包包什麼都有的安心擔當",acc:"算得清清楚楚的財務大臣",ai:"活動一條龍的神級隊友",snark:"嘴上嫌棄、身體很誠實",odd:"腦洞突破天際的彩蛋",play:"走到哪玩到哪的野生玩家",say:"偏好講得清清楚楚的標竿",food:"口袋名單滿滿的吃貨雷達",cheer:"最捧場的氣氛擔當",s67:"不管3721，只要67"};
+const V={s67:"videos/67.mp4",pg:"videos/dodge.mp4",snark:"videos/snark.mp4",odd:"videos/odd.mp4"};
 const TOT={};Q.forEach(q=>{const m={};q[1].forEach(o=>{if(o[1]!="BDAY")o[1].split(" ").forEach((x,j)=>m[x]=Math.max(m[x]||0,j?1:2))});for(const x in m)TOT[x]=(TOT[x]||0)+m[x]});
 const L=["社交電量","計畫力","準時度","隨和度"];
-const S={fo:[60,30,70,95],gh:[45,85,65,30],jj:[95,60,60,70],pg:[40,15,30,70],dodge:[15,35,40,45],cheer:[90,25,60,80],lt:[60,30,10,70],kid:[65,90,90,60],acc:[55,85,85,35],ai:[80,98,95,50],snark:[55,40,75,25],odd:[75,20,50,65],play:[85,10,55,90],say:[60,70,80,15],food:[70,75,75,55]};
+const S={fo:[60,30,70,95],gh:[45,85,65,30],jj:[95,60,60,70],pg:[15,30,35,60],cheer:[90,25,60,80],lt:[60,30,10,70],kid:[65,90,90,60],acc:[55,85,85,35],ai:[80,98,95,50],snark:[55,40,75,25],odd:[75,20,50,65],play:[85,10,55,90],say:[60,70,80,15],food:[70,75,75,55],s67:[67,67,67,67]};
 function bars(k){return S[k].map((v,j)=>`<div class="st"><b>${L[j]}</b><i><u style="width:${v}%"></u></i><span>${v}</span></div>`).join("")}
 function wrap(c,t,x,y,w,lh){let l="";for(const ch of t){if(c.measureText(l+ch).width>w){c.fillText(l,x,y);y+=lh;l=ch}else l+=ch}c.fillText(l,x,y);return y+lh}
 const T=["#ff7a3d","#ec4899","#3b82f6","#10b981","#8b5cf6","#eab308"];let cc=0,curRu,curG,lastCv;
 function th(j){cc=j;const c=document.querySelector(".card.rev");if(c)c.style.setProperty("--ac",T[j]);document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("on",i==j))}
 function rr(c,x,y,w,h){c.beginPath();c.roundRect?c.roundRect(x,y,w,h,24):c.rect(x,y,w,h)}
 function save(k){const r=R[k],W=1080,A=T[cc],cv=document.createElement("canvas");cv.width=W;cv.height=2000;const c=cv.getContext("2d");
-c.fillStyle="#fff8ee";c.fillRect(0,0,W,2000);const gr=c.createLinearGradient(0,0,0,900);gr.addColorStop(0,A+"40");gr.addColorStop(1,A+"00");c.fillStyle=gr;c.fillRect(0,0,W,900);c.fillStyle=A;c.fillRect(0,0,W,18);
+c.fillStyle="#fff8ee";c.fillRect(0,0,W,2000);c.fillStyle=A+"1A";c.fillRect(0,0,W,2000);c.fillStyle=A;c.fillRect(0,0,W,18);
 c.textAlign="center";c.fillStyle="#2b2118";c.font="150px sans-serif";c.fillText(r[0],W/2,240);
 c.font="bold 78px sans-serif";c.fillText(r[1],W/2,360);
 c.font="italic 40px sans-serif";let y=wrap(c,r[2],W/2,440,900,56);
@@ -79,10 +79,10 @@ if(r[5]){c.textAlign="left";c.fillStyle="#8a7a6a";c.font="32px sans-serif";y=wra
 c.textAlign="center";c.fillStyle="#8a7a6a";c.font="32px sans-serif";c.fillText("Don't 隨便｜你是哪種活動怪？",W/2,y+50);
 const o=document.createElement("canvas");o.width=W;o.height=Math.ceil(y+100);o.getContext("2d").drawImage(cv,0,0);lastCv=o;
 const ov=document.createElement("div");ov.id="ov";ov.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.88);overflow:auto;padding:16px;z-index:9;text-align:center;color:#fff";
-ov.innerHTML=`<img src="${o.toDataURL("image/png")}" style="max-width:100%;border-radius:12px"><p>長按圖片即可儲存</p><button class="btn go" onclick="share()">分享／下載圖片</button><button class="btn" onclick="document.getElementById('ov').remove()" style="text-align:center">關閉</button>`;document.body.appendChild(ov)}
-function share(){lastCv.toBlob(b=>{const f=new File([b],"dont-suibian.png",{type:"image/png"});if(navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f]}).catch(()=>{});else{const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="dont-suibian.png";a.click()}})}
+ov.innerHTML=`<img src="${o.toDataURL("image/png")}" style="max-width:100%;border-radius:12px"><p>也可以長按圖片儲存</p><button class="btn go" onclick="dl()">⬇️ 儲存圖片</button><button class="btn" onclick="document.getElementById('ov').remove()" style="text-align:center">關閉</button>`;document.body.appendChild(ov)}
+function dl(){lastCv.toBlob(b=>{const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="dont-suibian.png";document.body.appendChild(a);a.click();a.remove()})}
 const app=document.getElementById("app");let i,sc,n67,seen;
-function gal(){app.innerHTML=`<h2>所有角色</h2><p class="mut">共 14 種，另有 2 個隱藏彩蛋 🤫</p>`+Object.keys(R).filter(k=>k!="bday"&&k!="s67").map(k=>`<button class="btn" onclick="res('${k}',null,1)">${R[k][0]} <b>${R[k][1]}</b><br><span class="mut">${R[k][2]}</span></button>`).join("")+`<button class="btn" style="text-align:center" onclick="start()">← 回首頁</button>`;window.scrollTo(0,0)}
+function gal(){app.innerHTML=`<h2>所有角色</h2><p class="mut">共 15 種，另有 1 個隱藏彩蛋 🤫</p>`+Object.keys(R).filter(k=>k!="bday").map(k=>`<button class="btn" onclick="res('${k}',null,1)">${R[k][0]} <b>${R[k][1]}</b><br><span class="mut">${R[k][2]}</span></button>`).join("")+`<button class="btn" style="text-align:center" onclick="start()">← 回首頁</button>`;window.scrollTo(0,0)}
 function start(){app.innerHTML=`<div class="card c"><div class="em">🎲</div><h1>你是哪種活動怪？</h1><p class="mut">Don't 隨便 × 8 題小測驗<br>揪團、遲到、算錢…你在朋友圈是誰？</p><button class="btn go" onclick="begin()">開始測驗</button></div>`}
 function begin(){i=0;sc={};n67=0;seen={};ord={};hist=[];show()}
 let cur=[],ord={},hist=[];
@@ -91,7 +91,7 @@ app.innerHTML=`<div class="bar"><i style="width:${i/Q.length*100}%"></i></div><p
 function back(){const h=hist.pop();sc=h.sc;seen=h.seen;n67=h.n67;i--;show()}
 let lock=0;function pick(k,b){if(lock)return;lock=1;if(b)b.classList.add("sel");setTimeout(()=>{lock=0;pick0(k)},170)}
 function pick0(k){const c=cur[k][1];if(c=="BDAY")return res("bday");hist.push({sc:{...sc},seen:{...seen},n67});if(c=="S67")n67++;else{c.split(" ").forEach((x,j)=>{sc[x]=(sc[x]||0)+(j?1:2);seen[x]=i})}i++;i<Q.length?show():fin()}
-function fin(){if(n67>=3)return res("s67");const a=Object.keys(sc).sort((x,y)=>sc[y]/Math.pow(TOT[y],.75)-sc[x]/Math.pow(TOT[x],.75)||seen[y]-seen[x]);res(a[0]||"fo",a[1])}
+function fin(){const a=Object.keys(sc).sort((x,y)=>sc[y]/Math.pow(TOT[y],.75)-sc[x]/Math.pow(TOT[x],.75)||seen[y]-seen[x]);if(n67>=3)return res("s67",a[0]);res(a[0]||"fo",a[1])}
 function vid(k,f){app.innerHTML=`<video id="vd" src="${V[k]}" playsinline autoplay controls style="width:100%;border-radius:12px"></video><button class="btn" style="text-align:center" id="sk">跳過</button>`;const v=document.getElementById("vd");v.onended=f;v.onerror=f;document.getElementById("sk").onclick=f}
 function mini(ru,p){const f=(l,x)=>x?`<div class="mini"><small>${l}</small><div>${R[x][0]}</div><b>${R[x][1]}</b></div>`:"";const h=f("也有點像",ru)+f("最合拍",p);return h?`<div class="two">${h}</div>`:""}
 function res(k,ru,g,sk){if(!g&&!sk&&V[k])return vid(k,()=>res(k,ru,g,1));const r=R[k];curRu=ru;curG=g;app.innerHTML=`<div class="card rev" style="--ac:${T[cc]}"><div class="em">${r[0]}</div><p class="mut c">你的活動人格是</p><h1 class="c">${r[1]}</h1><p class="q c">${r[2]}</p><p class="tag c">${r[3]}</p><p>${r[4].replace(/\n/g,"<br>")}</p>${mini(ru,P[k])}${S[k]&&!g?bars(k):""}${r[5]?`<p class="mut">💬 Don't 隨便 小語：${r[5]}</p>`:""}</div><p class="mut c" style="margin-bottom:6px">卡片顏色</p><div class="c" style="margin-bottom:14px">${T.map((x,j)=>`<button class="dot${j==cc?" on":""}" style="background:${x}" onclick="th(${j})"></button>`).join("")}</div><button class="btn go" onclick="save('${k}')">💾 儲存結果圖片</button>${g?"":`<button class="btn" style="text-align:center" onclick="gal()">瀏覽所有角色</button>`}${g?`<button class="btn" style="text-align:center" onclick="gal()">← 回角色列表</button>`:`<button class="btn" style="text-align:center" onclick="begin()">再測一次</button>`}`;window.scrollTo(0,0)}
